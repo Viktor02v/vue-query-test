@@ -10,7 +10,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.2",
     "@tanstack/vue-query": "^5.62.7",
+    "appwrite": "^16.0.2",
     "nuxt": "^3.14.1592",
     "vue": "latest",
     "vue-router": "latest"

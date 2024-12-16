@@ -3,11 +3,12 @@
 </script>
 
 <template>
-	<div>
+	<div class="text-2xl">
 		Hey there
 	</div>
 </template>
 
 
 <style scoped>
+
 </style>
