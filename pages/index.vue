@@ -1,22 +1,29 @@
 <script setup lang="ts">
 import { useGetShoes } from "@/composables/useGetShoes";
 import { useCreateShoe } from "@/composables/useCreateShoe";
+import { useDeleteShoe } from "@/composables/useDeleteShoe";
 import type { Shoes } from "@/types/shoes"
 
 // Destructure properties from the query result
 const { data: shoes, isPending, isError, error } = useGetShoes();
 const { mutate, isPending: isPendingCreation, isError: isErrorCreation } = useCreateShoe();
+const { mutate: mutateDelete, isPending: isPendingDeletion, isError: isErrorDeletion } = useDeleteShoe();
 
-const addShoe = async () => {
+const addShoe = () => {
 	const shoe: Shoes = {
 		name: 'Adidas-rtx-50',
-		price: 445.59,
+		price: 700.59,
 		description: 'Sport Shoes',
 		foto_url: 'https://cloud.appwrite.io/v1/storage/buckets/storage/files/67605d61003c1fdbcad8/view?project=vue-query&project=vue-query&mode=admin'
 	}
 	mutate(shoe)
 }
 
+
+
+const deleteShoe = (shoeId: string) => {
+	mutateDelete(shoeId);
+}
 </script>
 
 <template>
@@ -44,6 +51,13 @@ const addShoe = async () => {
 						<div>
 							{{ shoe.description }}
 						</div>
+						<div>
+							<button @click="deleteShoe(shoe.$id)"
+								class="bg-red-500 border p-1 rounded text-white hover:bg-red-700 transition-all duration-500">
+								Delete
+							</button>
+
+						</div>
 					</div>
 				</div>
 			</div>
@@ -67,6 +81,10 @@ const addShoe = async () => {
 
 		<div v-if="isPendingCreation" class="text-blue-500">
 			Adding shoe...
+		</div>
+
+		<div v-if="isPendingDeletion" class="text-blue-500">
+			Deletting shoe...
 		</div>
 
 		<!-- Error State -->
